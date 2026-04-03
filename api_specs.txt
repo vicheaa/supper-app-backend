@@ -108,3 +108,38 @@ Because your Mini-Apps are built in React with Vite and will be downloaded and e
 1. Routing: They CANNOT use `BrowserRouter`. They MUST use `HashRouter` or `MemoryRouter` from 'react-router-dom'. A local file system has no web server to handle standard URL path fallbacks.
 2. Vite Base Path: In `vite.config.ts`, they must set `base: './'` so that asset imports (JS/CSS files) use relative paths instead of absolute domain paths.
 3. Super App Bridge: Since the React app works inside a Flutter WebView, the React team must communicate using the global bridge: `window.SuperAppBridge.postMessage(...)` for native features.
+
+==================================================
+4. Order Management (DEMO)
+==================================================
+This API handles order submission from mini-apps.
+
+4.1 Submit Order
+
+POST /orders
+Authentication: None (Public Demo)
+
+Request Body:
+{
+  "items": [
+    {
+      "product_id": 1,
+      "quantity": 2,
+      "price": 18.99
+    }
+  ],
+  "total_amount": 37.98,
+  "shipping_address": "123 Demo St, Testing City",
+  "payment_method": "cash_on_delivery"
+}
+
+Response (201 Created):
+{
+  "status": "success",
+  "message": "Order submitted successfully",
+  "data": {
+    "order_id": 15,
+    "total_amount": "37.98",
+    "item_count": 1
+  }
+}
